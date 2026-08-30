@@ -4,27 +4,24 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                echo 'Code récupéré depuis GitHub'
-            }
-        }
-
         stage('Build') {
             steps {
                 echo 'Construction du projet...'
+                sh './mvnw clean compile'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Exécution des tests...'
+                sh './mvnw test'
             }
         }
 
         stage('Package') {
             steps {
                 echo 'Création du JAR...'
+                sh './mvnw package -DskipTests'
             }
         }
     }
